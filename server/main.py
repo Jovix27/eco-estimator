@@ -1,5 +1,5 @@
 """
-GBAI Estimation - FastAPI Backend
+Eco Estimator - FastAPI Backend
 Main entry point for the API server.
 """
 
@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from api import api_router
 
 app = FastAPI(
-    title="GBAI Estimation API",
+    title="Eco Estimator API",
     description="AI-first cloud-native estimating platform for construction",
     version="0.1.0",
     docs_url="/docs",
@@ -33,7 +33,7 @@ async def root():
     """Health check endpoint."""
     return {
         "status": "healthy",
-        "service": "GBAI Estimation API",
+        "service": "Eco Estimator API",
         "version": "0.1.0",
     }
 

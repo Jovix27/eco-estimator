@@ -1,10 +1,10 @@
-# GBAI Estimation
+# Eco Estimator
 
 AI-first, cloud-native estimating platform for construction projects.
 
 ## Overview
 
-GBAI Estimation automates accurate Quantity Takeoffs (QTOs) from 2D/3D drawings, keeps rates live, quantifies uncertainty, and delivers tender-ready BOQs with traceable audit trails and compliance for Indian construction standards.
+Eco Estimator automates accurate Quantity Takeoffs (QTOs) from 2D/3D drawings, keeps rates live, quantifies uncertainty, and delivers tender-ready BOQs with traceable audit trails and compliance for Indian construction standards.
 
 ## Core Value Propositions
 
@@ -107,4 +107,4 @@ When running the backend, access:
 
 ## License
 
-© 2026 Green Build AI. All rights reserved.
+© 2026 Eco Estimator. All rights reserved.

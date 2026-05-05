@@ -2,7 +2,7 @@
  * Inline-editable BOQ grid, trade-grouped.
  * Cells become inputs on click. Changes are sent to the API on blur.
  */
-import { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import { RefreshCw, Pencil, CheckCircle, AlertCircle } from 'lucide-react'
 import { boqApi, type TradeGroup, type BOQItem } from '../lib/api'
 
@@ -89,32 +89,36 @@ export default function BOQGrid({ projectId, trades, totalDirectCost, onUpdate }
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-white/10">
-      <table className="w-full text-xs border-collapse min-w-[900px]">
-        <thead>
-          <tr className="bg-[#0d1f1a]">
-            {['No.', 'Trade', 'Description', 'Unit', 'Qty', 'Rate (₹)', 'Amount (₹)', 'Mat. (₹)', 'Lab. (₹)', 'Equip. (₹)'].map(h => (
-              <th key={h} className="px-3 py-3 text-left text-[10px] font-bold uppercase tracking-wider text-gray-400 border-b border-white/5 first:w-12 whitespace-nowrap">
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
+    <div className="industrial-card border-nothing-border overflow-hidden">
+      <div className="overflow-x-auto">
+        <table className="w-full text-[10px] border-collapse min-w-[1000px]">
+          <thead>
+            <tr className="bg-nothing-text/[0.03] border-b border-nothing-border">
+              {['Index', 'Typology', 'Specification_Vector', 'Unit', 'Qty_Node', 'Rate_Inr', 'Total_Inr', 'Mat_Dist', 'Lab_Dist', 'Eqp_Dist'].map(h => (
+                <th key={h} className="px-4 py-4 text-left text-[9px] font-black uppercase tracking-[0.2em] text-nothing-text-muted/40 border-r border-nothing-border/50 last:border-r-0 first:w-16">
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
           {trades.map(tg => {
-            const color = TRADE_COLORS[tg.trade] ?? '#10b981'
+            const color = TRADE_COLORS[tg.trade] ?? 'var(--nothing-lime)'
             return (
-              <>
+              <React.Fragment key={`trade-${tg.trade}`}>
                 {/* Trade header */}
-                <tr key={`h-${tg.trade}`} style={{ backgroundColor: color + '18' }}>
-                  <td colSpan={6} className="px-3 py-2 font-bold text-[11px] uppercase tracking-wider" style={{ color }}>
-                    {tg.trade}
-                    <span className="ml-2 text-[10px] font-normal text-gray-500">{tg.items.length} items</span>
+                <tr className="bg-nothing-text/[0.01] border-b border-nothing-border/50">
+                  <td colSpan={6} className="px-4 py-3 font-black text-[10px] uppercase tracking-[0.3em] border-r border-nothing-border/50">
+                    <div className="flex items-center gap-3">
+                      <div className="w-1.5 h-1.5" style={{ backgroundColor: color }}></div>
+                      <span style={{ color }}>{tg.trade}</span>
+                      <span className="text-nothing-text-muted/20 italic">// {tg.items.length}_NODES</span>
+                    </div>
                   </td>
-                  <td className="px-3 py-2 text-right font-bold" style={{ color }}>
+                  <td className="px-4 py-3 text-right font-black text-nothing-lime italic border-r border-nothing-border/50 bg-nothing-lime/5">
                     {INR(tg.subtotal)}
                   </td>
-                  <td colSpan={3} />
+                  <td colSpan={3} className="border-nothing-border/50" />
                 </tr>
 
                 {/* Items */}
@@ -127,42 +131,41 @@ export default function BOQGrid({ projectId, trades, totalDirectCost, onUpdate }
                   return (
                     <tr
                       key={item.id}
-                      className={`border-b border-white/5 transition-colors ${isOdd ? 'bg-white/[0.015]' : ''} hover:bg-primary-900/10`}
+                      className={`border-b border-nothing-border/20 transition-colors group ${isOdd ? 'bg-nothing-text/[0.005]' : 'bg-transparent'} hover:bg-nothing-lime/5`}
                     >
                       {/* No. */}
-                      <td className="px-3 py-2 font-mono text-gray-500 whitespace-nowrap">
-                        <div className="flex items-center gap-1">
+                      <td className="px-4 py-3 font-black text-nothing-text-muted/30 whitespace-nowrap border-r border-nothing-border/50 group-hover:text-nothing-lime/60 transition-colors">
+                        <div className="flex items-center gap-2">
                           {item.item_no}
                           {item.is_manual && (
-                            <span className="text-yellow-400" title="Manually edited">
-                              <Pencil size={9} />
+                            <span className="text-nothing-lime" title="Override Active">
+                              <Pencil size={8} />
                             </span>
                           )}
-                          {isSaving && <RefreshCw size={9} className="animate-spin text-primary-400" />}
-                          {hasError && <AlertCircle size={9} className="text-red-400" title={errors[item.id]} />}
-                          {!isSaving && !hasError && item.is_manual && <CheckCircle size={9} className="text-primary-500" />}
+                          {isSaving && <RefreshCw size={8} className="animate-spin text-nothing-lime" />}
+                          {hasError && <AlertCircle size={8} className="text-rose-500" title={errors[item.id]} />}
                         </div>
                       </td>
 
                       {/* Trade */}
-                      <td className="px-3 py-2 text-gray-500 whitespace-nowrap">{item.trade}</td>
+                      <td className="px-4 py-3 text-nothing-text-muted/20 font-black uppercase tracking-tighter whitespace-nowrap border-r border-nothing-border/50">{item.trade}</td>
 
                       {/* Description */}
-                      <td className="px-3 py-2 text-gray-300 leading-relaxed max-w-xs">
-                        <span title={item.description}>{item.description}</span>
+                      <td className="px-4 py-3 text-nothing-text-muted leading-relaxed max-w-sm border-r border-nothing-border/50 group-hover:text-nothing-text transition-colors">
+                        <span title={item.description} className="line-clamp-2">{item.description}</span>
                       </td>
 
                       {/* Unit */}
-                      <td className="px-3 py-2 text-gray-400 whitespace-nowrap font-mono">{item.unit}</td>
+                      <td className="px-4 py-3 text-nothing-text-muted/30 whitespace-nowrap font-black uppercase border-r border-nothing-border/50">{item.unit}</td>
 
                       {/* Qty — editable */}
-                      <td className="px-1 py-1 text-right whitespace-nowrap">
+                      <td className="px-1 py-1 text-right whitespace-nowrap border-r border-nothing-border/50">
                         {isEditing && editing?.field === 'quantity' ? (
                           <input
                             ref={inputRef}
                             type="number"
                             step="any"
-                            className="w-24 bg-primary-900/30 border border-primary-500 rounded px-2 py-1 text-right text-xs focus:outline-none font-mono"
+                            className="w-24 bg-nothing-bg-muted border border-nothing-lime/40 px-2 py-2 text-right text-[10px] font-black focus:outline-none text-nothing-lime"
                             value={editing.value}
                             onChange={e => setEditing(ed => ed ? { ...ed, value: e.target.value } : null)}
                             onBlur={commitEdit}
@@ -170,9 +173,8 @@ export default function BOQGrid({ projectId, trades, totalDirectCost, onUpdate }
                           />
                         ) : (
                           <button
-                            className="px-2 py-1 rounded hover:bg-white/10 font-mono text-right w-full transition-colors"
+                            className="px-4 py-3 hover:bg-nothing-lime/10 font-black text-right w-full transition-all group-hover:text-nothing-lime"
                             onClick={() => startEdit(item, 'quantity')}
-                            title="Click to edit quantity"
                           >
                             {num(item.quantity)}
                           </button>
@@ -180,13 +182,13 @@ export default function BOQGrid({ projectId, trades, totalDirectCost, onUpdate }
                       </td>
 
                       {/* Rate — editable */}
-                      <td className="px-1 py-1 text-right whitespace-nowrap">
+                      <td className="px-1 py-1 text-right whitespace-nowrap border-r border-nothing-border/50">
                         {isEditing && editing?.field === 'rate' ? (
                           <input
                             ref={inputRef}
                             type="number"
                             step="any"
-                            className="w-28 bg-primary-900/30 border border-primary-500 rounded px-2 py-1 text-right text-xs focus:outline-none font-mono"
+                            className="w-28 bg-nothing-bg-muted border border-nothing-lime/40 px-2 py-2 text-right text-[10px] font-black focus:outline-none text-nothing-lime"
                             value={editing.value}
                             onChange={e => setEditing(ed => ed ? { ...ed, value: e.target.value } : null)}
                             onBlur={commitEdit}
@@ -194,9 +196,8 @@ export default function BOQGrid({ projectId, trades, totalDirectCost, onUpdate }
                           />
                         ) : (
                           <button
-                            className="px-2 py-1 rounded hover:bg-white/10 font-mono text-right w-full transition-colors"
+                            className="px-4 py-3 hover:bg-nothing-lime/10 font-black text-right w-full transition-all group-hover:text-nothing-lime"
                             onClick={() => startEdit(item, 'rate')}
-                            title="Click to edit rate"
                           >
                             {INR(item.rate)}
                           </button>
@@ -204,46 +205,56 @@ export default function BOQGrid({ projectId, trades, totalDirectCost, onUpdate }
                       </td>
 
                       {/* Amount */}
-                      <td className="px-3 py-2 text-right font-semibold text-white whitespace-nowrap">
+                      <td className="px-4 py-3 text-right font-black text-nothing-lime whitespace-nowrap border-r border-nothing-border/50 italic">
                         {INR(item.amount)}
                       </td>
 
                       {/* Material */}
-                      <td className="px-3 py-2 text-right text-gray-500 whitespace-nowrap">
+                      <td className="px-4 py-3 text-right text-nothing-text-muted/30 font-black whitespace-nowrap border-r border-nothing-border/50">
                         {INR(item.material_rate * item.quantity)}
                       </td>
 
                       {/* Labour */}
-                      <td className="px-3 py-2 text-right text-gray-500 whitespace-nowrap">
+                      <td className="px-4 py-3 text-right text-nothing-text-muted/30 font-black whitespace-nowrap border-r border-nothing-border/50">
                         {INR(item.labor_rate * item.quantity)}
                       </td>
 
                       {/* Equipment */}
-                      <td className="px-3 py-2 text-right text-gray-500 whitespace-nowrap">
+                      <td className="px-4 py-3 text-right text-nothing-text-muted/30 font-black whitespace-nowrap">
                         {INR(item.equipment_rate * item.quantity)}
                       </td>
                     </tr>
                   )
                 })}
-              </>
+              </React.Fragment>
             )
           })}
 
           {/* Grand total */}
-          <tr className="bg-[#0d1f1a] border-t-2 border-primary-900">
-            <td colSpan={6} className="px-3 py-3 font-black text-sm text-primary-300 uppercase tracking-wider">
-              Total Direct Cost
+          <tr className="bg-nothing-text/[0.03] border-t-2 border-nothing-border">
+            <td colSpan={6} className="px-4 py-6 font-black text-xs text-nothing-text uppercase tracking-[0.4em]">
+              Total_Direct_Production_Vector
             </td>
-            <td className="px-3 py-3 text-right font-black text-sm text-primary-300">
+            <td className="px-4 py-6 text-right font-black text-2xl text-nothing-lime italic tracking-tighter">
               {INR(totalDirectCost)}
             </td>
             <td colSpan={3} />
           </tr>
         </tbody>
-      </table>
-      <p className="text-[10px] text-gray-600 text-right px-4 py-2">
-        Click any <span className="text-gray-500">Qty</span> or <span className="text-gray-500">Rate</span> cell to edit inline. Changes save automatically.
-      </p>
+        </table>
+      </div>
+      
+      <div className="flex items-center justify-between px-6 py-4 bg-nothing-text/[0.02] border-t border-nothing-border/50">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 bg-nothing-lime"></div>
+            <span className="text-[8px] font-black text-nothing-text-muted/30 uppercase tracking-widest italic">// Vector_Audit_System_Active</span>
+          </div>
+        </div>
+        <p className="text-[9px] font-black text-nothing-text-muted/30 uppercase tracking-[0.2em] italic">
+          Double_Tap <span className="text-nothing-text-muted/60 italic">[Qty/Rate]</span> nodes to trigger manual override.
+        </p>
+      </div>
     </div>
   )
 }

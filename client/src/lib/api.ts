@@ -97,6 +97,21 @@ export interface MetaOptions {
   quality_grades: string[]
 }
 
+export interface QuickEstimateBreakdown {
+  category: string
+  amount: number
+  percentage: number
+}
+
+export interface QuickEstimateResponse {
+  total_cost: number
+  rate_per_sqft: number
+  location_index: number
+  breakdown: QuickEstimateBreakdown[]
+  material_prices: Record<string, { unit: string; rate: number; trend: 'up' | 'down' }>
+  validation_status: string
+}
+
 // ── Projects ──────────────────────────────────────────────────────────────
 
 export const projectsApi = {
@@ -167,4 +182,22 @@ export const exportApi = {
     a.download = `EcoEstimator_${projectName.replace(/\s+/g, '_')}_BOQ.xlsx`
     a.click()
   },
+}
+
+// ── Quick Estimate ────────────────────────────────────────────────────────
+
+export const quickEstimateApi = {
+  getRates: (location = 'Other') =>
+    request<{ location: string; multiplier: number; material_prices: any }>(`/quick-estimate/rates?location=${location}`),
+
+  calculate: (body: {
+    area_sqft: number
+    location: string
+    building_type: string
+    quality_level: string
+    include_tax?: boolean
+  }) => request<QuickEstimateResponse>(`/quick-estimate/calculate`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  }),
 }

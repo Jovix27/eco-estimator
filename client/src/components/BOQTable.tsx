@@ -1,4 +1,4 @@
-import { Leaf, AlertCircle } from 'lucide-react'
+import { List } from 'lucide-react'
 
 interface MaterialItem {
   material_id: string
@@ -8,7 +8,6 @@ interface MaterialItem {
   unit: string
   rate_per_unit: number
   total_cost: number
-  carbon_per_unit: number
   total_carbon: number
   is_sustainable: boolean
   cost_share_pct: number
@@ -22,8 +21,10 @@ interface BOQTableProps {
 export default function BOQTable({ materials }: BOQTableProps) {
   if (materials.length === 0) {
     return (
-      <div className="glass rounded-2xl border border-white/10 p-12 text-center">
-        <p className="text-gray-500 text-sm font-bold uppercase tracking-widest opacity-50">Enter building parameters to generate BOQ</p>
+      <div className="industrial-card p-12 text-center border-white/5 bg-white/[0.01]">
+        <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.3em] italic">
+          // AWAITING_INPUT_PARAMS_TO_GENERATE_BILL_OF_QUANTITIES
+        </p>
       </div>
     )
   }
@@ -32,85 +33,97 @@ export default function BOQTable({ materials }: BOQTableProps) {
   const totalCarbon = materials.reduce((s, m) => s + m.total_carbon, 0)
 
   return (
-    <div className="glass rounded-2xl border border-white/10 shadow-xl overflow-hidden">
-      <div className="p-5 border-b border-white/10 bg-white/5">
-        <h2 className="text-lg font-bold flex items-center gap-2">
-          📋 Bill of Quantities
-        </h2>
-        <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Material-level cost & carbon breakdown</p>
+    <div className="industrial-card border-[var(--nothing-border)] bg-[var(--nothing-surface)] overflow-hidden">
+      <div className="p-6 border-b border-[var(--nothing-border)] bg-white/[0.03] flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="w-2 h-8 bg-[var(--nothing-lime)]"></div>
+          <div>
+            <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-[var(--nothing-text-dim)] opacity-40 mb-1">
+              PROCURMENT_AUDIT_LOG_V1
+            </h2>
+            <p className="text-lg font-black text-[var(--nothing-text)] italic tracking-widest uppercase">
+              BILL_OF_QUANTITIES
+            </p>
+          </div>
+        </div>
+        <div className="text-right">
+          <p className="text-[9px] font-black text-[var(--nothing-text-dim)] opacity-20 uppercase tracking-widest">SYSTEM_STATUS</p>
+          <p className="text-[10px] font-black text-[var(--nothing-lime)] uppercase tracking-widest italic">VERIFIED_FOR_TENDER</p>
+        </div>
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full text-left">
-          <thead className="bg-white/5 text-[10px] text-gray-500 uppercase tracking-widest">
-            <tr>
-              <th className="px-5 py-3 font-black">Material</th>
-              <th className="px-5 py-3 font-black text-right">Quantity</th>
-              <th className="px-5 py-3 font-black text-right">Rate (₹)</th>
-              <th className="px-5 py-3 font-black text-right">Cost (₹)</th>
-              <th className="px-5 py-3 font-black text-right">Carbon (kgCO₂e)</th>
-              <th className="px-5 py-3 font-black text-right">Cost %</th>
-              <th className="px-5 py-3 font-black text-right">Carbon %</th>
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="bg-white/5 border-b border-[var(--nothing-border)]">
+              <th className="px-6 py-4 text-[9px] font-black text-[var(--nothing-text-dim)] opacity-40 uppercase tracking-[0.2em]">MATERIAL_NODE</th>
+              <th className="px-6 py-4 text-[9px] font-black text-[var(--nothing-text-dim)] opacity-40 uppercase tracking-[0.2em] text-right">QTY_NET</th>
+              <th className="px-6 py-4 text-[9px] font-black text-[var(--nothing-text-dim)] opacity-40 uppercase tracking-[0.2em] text-right">UNIT_RATE</th>
+              <th className="px-6 py-4 text-[9px] font-black text-[var(--nothing-text-dim)] opacity-40 uppercase tracking-[0.2em] text-right text-[var(--nothing-lime)]">TOTAL_VALUATION</th>
+              <th className="px-6 py-4 text-[9px] font-black text-[var(--nothing-text-dim)] opacity-40 uppercase tracking-[0.2em] text-right">CARBON_INTENSITY</th>
+              <th className="px-6 py-4 text-[9px] font-black text-[var(--nothing-text-dim)] opacity-40 uppercase tracking-[0.2em] text-right">DIST_PCT</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-[var(--nothing-border)]">
             {materials.map(m => (
-              <tr key={m.material_id} className="hover:bg-white/5 transition-colors">
-                <td className="px-5 py-3.5">
-                  <div className="font-bold text-sm">{m.material_name}</div>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="text-[10px] text-gray-500 font-bold uppercase">{m.category}</span>
+              <tr key={m.material_id} className="hover:bg-white/[0.03] transition-colors group">
+                <td className="px-6 py-5">
+                  <div className="font-black text-xs text-[var(--nothing-text)] uppercase tracking-wider mb-2">{m.material_name}</div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-[9px] font-black text-[var(--nothing-text-dim)] opacity-30 uppercase tracking-widest">{m.category}</span>
+                    <div className="w-1 h-1 bg-[var(--nothing-text-dim)] opacity-20"></div>
                     {m.is_sustainable ? (
-                      <span className="text-[9px] text-green-500 font-black flex items-center gap-0.5">
-                        <Leaf size={9} /> ECO
+                      <span className="text-[9px] text-[var(--nothing-lime)] font-black uppercase tracking-widest px-2 py-0.5 border border-[var(--nothing-lime)]/30 bg-[var(--nothing-lime)]/5 italic">
+                        ECO_SPEC
                       </span>
                     ) : (
-                      <span className="text-[9px] text-amber-500 font-black flex items-center gap-0.5">
-                        <AlertCircle size={9} /> STD
+                      <span className="text-[9px] text-[var(--nothing-text-dim)] opacity-40 font-black uppercase tracking-widest px-2 py-0.5 border border-[var(--nothing-border)] bg-white/5 italic">
+                        STD_SPEC
                       </span>
                     )}
                   </div>
                 </td>
-                <td className="px-5 py-3.5 text-right font-mono text-sm">
-                  {m.quantity.toLocaleString('en-IN')} <span className="text-[10px] text-gray-500">{m.unit}</span>
+                <td className="px-6 py-5 text-right font-mono text-xs text-[var(--nothing-text)]">
+                  {m.quantity.toLocaleString('en-IN')} <span className="text-[9px] text-[var(--nothing-text-dim)] opacity-30 font-black">{m.unit}</span>
                 </td>
-                <td className="px-5 py-3.5 text-right font-mono text-sm text-gray-400">
+                <td className="px-6 py-5 text-right font-mono text-xs text-[var(--nothing-text-dim)] opacity-50">
                   ₹{m.rate_per_unit.toLocaleString('en-IN')}
                 </td>
-                <td className="px-5 py-3.5 text-right font-mono text-sm font-bold">
+                <td className="px-6 py-5 text-right font-mono text-sm font-black text-[var(--nothing-lime)]">
                   ₹{m.total_cost.toLocaleString('en-IN')}
                 </td>
-                <td className="px-5 py-3.5 text-right font-mono text-sm text-gray-400">
-                  {m.total_carbon.toLocaleString('en-IN')}
+                <td className="px-6 py-5 text-right font-mono text-xs text-[var(--nothing-text-dim)] opacity-50">
+                  {m.total_carbon.toLocaleString('en-IN')} <span className="text-[8px] text-[var(--nothing-text-dim)] opacity-20 font-black uppercase tracking-tighter ml-1">kgCO₂e</span>
                 </td>
-                <td className="px-5 py-3.5 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <div className="w-16 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                      <div className="h-full bg-blue-500 rounded-full" style={{ width: `${m.cost_share_pct}%` }} />
+                <td className="px-6 py-5 text-right">
+                  <div className="flex flex-col items-end gap-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[8px] font-black text-[var(--nothing-text-dim)] opacity-20 uppercase tracking-tighter">COST</span>
+                      <div className="w-16 h-1.5 bg-white/5 border border-[var(--nothing-border)] relative">
+                        <div className="h-full bg-[var(--nothing-text)] opacity-40 transition-all duration-1000" style={{ width: `${m.cost_share_pct}%` }} />
+                      </div>
+                      <span className="text-[9px] font-mono text-[var(--nothing-text-dim)] opacity-40 w-8">{m.cost_share_pct}%</span>
                     </div>
-                    <span className="text-[10px] font-mono text-gray-500 w-10 text-right">{m.cost_share_pct}%</span>
-                  </div>
-                </td>
-                <td className="px-5 py-3.5 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <div className="w-16 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                      <div className="h-full bg-green-500 rounded-full" style={{ width: `${m.carbon_share_pct}%` }} />
+                    <div className="flex items-center gap-2">
+                      <span className="text-[8px] font-black text-[var(--nothing-text-dim)] opacity-20 uppercase tracking-tighter">CRBN</span>
+                      <div className="w-16 h-1.5 bg-white/5 border border-[var(--nothing-border)] relative">
+                        <div className="h-full bg-[var(--nothing-lime)] transition-all duration-1000" style={{ width: `${m.carbon_share_pct}%` }} />
+                      </div>
+                      <span className="text-[9px] font-mono text-[var(--nothing-lime)] opacity-60 w-8">{m.carbon_share_pct}%</span>
                     </div>
-                    <span className="text-[10px] font-mono text-gray-500 w-10 text-right">{m.carbon_share_pct}%</span>
                   </div>
                 </td>
               </tr>
             ))}
           </tbody>
-          <tfoot className="bg-white/5 border-t border-white/10">
-            <tr className="font-black text-sm">
-              <td className="px-5 py-3.5">TOTAL</td>
-              <td className="px-5 py-3.5" />
-              <td className="px-5 py-3.5" />
-              <td className="px-5 py-3.5 text-right font-mono">₹{totalCost.toLocaleString('en-IN')}</td>
-              <td className="px-5 py-3.5 text-right font-mono">{totalCarbon.toLocaleString('en-IN')}</td>
-              <td className="px-5 py-3.5" />
-              <td className="px-5 py-3.5" />
+          <tfoot className="bg-white/5 border-t-2 border-[var(--nothing-border)]">
+            <tr className="font-black">
+              <td className="px-6 py-5 text-xs text-[var(--nothing-text)] uppercase tracking-[0.2em] italic">AGGREGATE_TOTALS</td>
+              <td className="px-6 py-5" />
+              <td className="px-6 py-5" />
+              <td className="px-6 py-5 text-right font-mono text-lg text-[var(--nothing-lime)] tracking-tighter">₹{totalCost.toLocaleString('en-IN')}</td>
+              <td className="px-6 py-5 text-right font-mono text-xs text-[var(--nothing-text)] uppercase">{totalCarbon.toLocaleString('en-IN')} kgCO₂e</td>
+              <td className="px-6 py-5" />
             </tr>
           </tfoot>
         </table>

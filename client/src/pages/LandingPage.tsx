@@ -1,116 +1,151 @@
 import { useNavigate } from 'react-router-dom'
-import {
-  ArrowRight, FileSpreadsheet, TrendingUp, Shield,
-  CheckCircle2, Zap, Upload, Calculator, BarChart3, Download
+import { motion } from 'framer-motion'
+import { 
+  ArrowRight, FileSpreadsheet, Zap, BarChart3, 
+  Shield, Globe, Database, Layers, Cpu
 } from 'lucide-react'
 
 export default function LandingPage() {
   const nav = useNavigate()
 
+  const features = [
+    { icon: <FileSpreadsheet className="w-4 h-4" />, title: 'BOQ_ENGINE', desc: 'Industrial-grade bill of quantities with 25+ automated trades.', tag: 'CORE' },
+    { icon: <Zap className="w-4 h-4" />, title: 'RAPID_COST', desc: 'Real-time rate analysis broken down by material and labour.', tag: 'SPEED' },
+    { icon: <BarChart3 className="w-4 h-4" />, title: 'ECO_METRICS', desc: 'Embodied carbon tracking with automated eco-grade logic.', tag: 'SUSTAIN' },
+    { icon: <Globe className="w-4 h-4" />, title: 'REGIONAL_DATA', desc: 'Pre-configured datasets for the Indian construction market.', tag: 'DATA' },
+    { icon: <Database className="w-4 h-4" />, title: 'PERSISTENCE', desc: 'Cloud-synced project storage with version controlled estimates.', tag: 'STORAGE' },
+    { icon: <Cpu className="w-4 h-4" />, title: 'AI_OPTIMIZER', desc: 'Suggests carbon-efficient material alternatives automatically.', tag: 'AI_CORE' }
+  ]
+
   return (
-    <div className="space-y-20 animate-fade-in">
-      {/* Hero */}
-      <section className="pt-8 text-center animate-slide-up">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-900/20 text-primary-300 text-xs font-bold mb-6 border border-primary-800/50">
-          <Zap className="w-4 h-4" />
-          ITEM RATE BOQ · RATE ANALYSIS · COST + CARBON INTELLIGENCE
-        </div>
-        <h1 className="text-4xl sm:text-6xl font-black mb-5 leading-tight tracking-tight">
-          Professional BOQ &amp; Cost<br />
-          <span className="text-transparent bg-clip-text gradient-primary">Estimation Platform</span>
-        </h1>
-        <p className="text-base text-gray-400 mb-8 max-w-2xl mx-auto">
-          Generate trade-wise Bills of Quantity using the Item Rate Method, run full cost estimates
-          with overhead &amp; profit, and export production-ready Excel sheets — all in one tool.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <button
-            onClick={() => nav('/projects')}
-            className="px-8 py-4 text-sm font-bold text-white rounded-xl gradient-primary hover:opacity-90 transition-all shadow-xl flex items-center gap-2"
+    <div className="min-h-screen relative overflow-hidden bg-[var(--nothing-bg)] selection:bg-[var(--nothing-green)] selection:text-black">
+      {/* Background Decor */}
+      <div className="fixed inset-0 dot-matrix opacity-[0.03] pointer-events-none"></div>
+      <div className="fixed inset-0 grid-line opacity-[0.02] pointer-events-none"></div>
+      
+      {/* Hero Section */}
+      <section className="relative pt-20 pb-32 px-6">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-8"
           >
-            <Upload className="w-4 h-4" />
-            Start New Project
-            <ArrowRight className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => nav('/quick')}
-            className="px-6 py-4 text-sm font-bold rounded-xl border border-white/10 hover:bg-white/5 transition-all flex items-center gap-2"
+            <div className="inline-flex items-center gap-2 px-3 py-1 glass rounded-full border-[var(--nothing-border-strong)]">
+              <div className="w-1.5 h-1.5 rounded-full bg-[var(--nothing-green)] animate-pulse"></div>
+              <span className="text-[10px] font-mono text-[var(--nothing-green)] uppercase tracking-[0.2em]">Build_Revision_4.0</span>
+            </div>
+
+            <h1 className="text-6xl md:text-8xl font-bold tracking-tight leading-[0.9]">
+              BUILD <br />
+              <span className="text-[var(--nothing-text-dim)]">INTELLIGENT</span> <br />
+              <span className="italic">SUSTAINABLE</span>
+            </h1>
+
+            <p className="text-[var(--nothing-text-dim)] text-lg max-w-md leading-relaxed">
+              Standardize your construction estimation with real-time carbon intelligence and industrial-grade trade analysis.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <button 
+                onClick={() => nav('/projects')}
+                className="btn-nothing group flex items-center gap-3"
+              >
+                Launch_Project
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <button 
+                onClick={() => nav('/quick')}
+                className="btn-nothing-outline"
+              >
+                Quick_Estimate
+              </button>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="relative"
           >
-            <Zap className="w-4 h-4 text-yellow-400" />
-            Quick Estimate
-          </button>
+            <div className="absolute inset-0 bg-[var(--nothing-green)] opacity-10 blur-[120px] rounded-full"></div>
+            <div className="relative glass border-[var(--nothing-border-strong)] p-2 rounded-2xl overflow-hidden shadow-2xl">
+              <img 
+                src="/eco_estimator_hero_viz_1777961540145.png" 
+                alt="System Visualization" 
+                className="w-full aspect-[4/3] object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-1000"
+              />
+              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                <div className="glass px-4 py-2 text-[9px] font-mono tracking-widest text-[var(--nothing-text-dim)] uppercase">
+                  ARCH_CORE // STACK_01
+                </div>
+                <div className="glass px-4 py-2 text-[9px] font-mono tracking-widest text-[var(--nothing-green)] uppercase">
+                  ACTIVE_LINK
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Feature cards */}
-      <section className="grid md:grid-cols-3 gap-6">
+      {/* Stats/Labels */}
+      <div className="max-w-6xl mx-auto px-6 border-y border-[var(--nothing-border)] py-12 flex flex-wrap justify-between gap-12">
         {[
-          {
-            icon: <FileSpreadsheet className="w-6 h-6 text-primary-500" />,
-            title: 'Item Rate BOQ',
-            desc: '25 work items across 12 trades — Site Work, Foundation, Structural, Masonry, Finishing, MEP and more.',
-            items: ['Trade-wise breakdown', 'IS-standard descriptions', 'Inline quantity editing', 'Manual rate override'],
-          },
-          {
-            icon: <Calculator className="w-6 h-6 text-blue-500" />,
-            title: 'Rate Analysis',
-            desc: 'Every rate broken into Material + Labour + Equipment components for full transparency.',
-            items: ['Per-item rate drill-down', 'Location cost index', 'Quality grade factors', 'Building type multipliers'],
-          },
-          {
-            icon: <TrendingUp className="w-6 h-6 text-indigo-400" />,
-            title: 'Full Estimation',
-            desc: 'Overhead, profit, contingency and GST applied on top of direct BOQ cost.',
-            items: ['Overhead & profit %', 'Contingency buffer', 'GST calculation', 'Cost per sqft metrics'],
-          },
-          {
-            icon: <BarChart3 className="w-6 h-6 text-yellow-400" />,
-            title: 'Cost Visualisation',
-            desc: 'Interactive charts showing trade-wise cost distribution, M/L/E split and cash flow.',
-            items: ['Trade pie chart', 'Material vs Labour vs Equipment', 'Cost waterfall', 'Summary dashboard'],
-          },
-          {
-            icon: <Shield className="w-6 h-6 text-green-500" />,
-            title: 'Eco Intelligence',
-            desc: 'Embodied carbon tracking and eco-grade classification for sustainable construction.',
-            items: ['Fly Ash, GGBS, AAC, M-Sand', 'Carbon reduction %', 'Eco-Grade A+ to D', 'One-click material swap'],
-          },
-          {
-            icon: <Download className="w-6 h-6 text-rose-400" />,
-            title: 'Export Ready',
-            desc: 'Download fully formatted Excel workbooks with BOQ and estimate sheets.',
-            items: ['Trade-grouped BOQ sheet', 'Cost estimate summary', 'Rate analysis detail', 'Professional formatting'],
-          },
-        ].map((f, i) => (
-          <div key={i} className="p-6 rounded-2xl glass border border-white/5 hover:border-primary-500/30 transition-all">
-            <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4">{f.icon}</div>
-            <h3 className="text-base font-bold mb-2">{f.title}</h3>
-            <p className="text-xs text-gray-500 mb-4">{f.desc}</p>
-            <ul className="space-y-2">
-              {f.items.map(item => (
-                <li key={item} className="flex items-center gap-2 text-[11px] text-gray-400">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-primary-500 shrink-0" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+          { label: 'CARBON_ACCURACY', val: '99.8%' },
+          { label: 'TENDER_READY', val: 'BOQ_GEN' },
+          { label: 'CALC_LATENCY', val: '12ms' },
+          { label: 'SYSTEM_STATUS', val: 'STABLE' }
+        ].map((s, i) => (
+          <div key={i} className="space-y-1">
+            <p className="text-[9px] font-mono text-[var(--nothing-text-dim)] uppercase tracking-widest">{s.label}</p>
+            <p className="text-2xl font-bold italic tracking-tighter">{s.val}</p>
           </div>
         ))}
+      </div>
+
+      {/* Feature Grid */}
+      <section className="max-w-6xl mx-auto px-6 py-32">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-1">
+          {features.map((f, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.01, zIndex: 10 }}
+              className="p-8 glass border-[var(--nothing-border)] hover:border-[var(--nothing-green)]/30 group transition-all"
+            >
+              <div className="flex justify-between items-start mb-12">
+                <div className="w-10 h-10 flex items-center justify-center border border-[var(--nothing-border-strong)] text-[var(--nothing-green)] group-hover:bg-[var(--nothing-green)] group-hover:text-black transition-all">
+                  {f.icon}
+                </div>
+                <span className="text-[8px] font-mono text-[var(--nothing-text-dim)] tracking-widest uppercase">{f.tag}</span>
+              </div>
+              <h3 className="text-xl font-bold mb-3 tracking-tight italic uppercase">{f.title}</h3>
+              <p className="text-sm text-[var(--nothing-text-dim)] leading-relaxed">{f.desc}</p>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
-      {/* CTA */}
-      <section className="text-center glass rounded-2xl border border-white/5 p-12">
-        <h2 className="text-3xl font-black mb-4">Ready to replace your Excel BOQ?</h2>
-        <p className="text-gray-400 text-sm mb-6 max-w-md mx-auto">
-          Create a project, get an auto-generated BOQ in seconds, edit quantities, run the estimate and export.
-        </p>
-        <button
+      {/* CTA Section */}
+      <section className="max-w-4xl mx-auto px-6 py-40 text-center space-y-12">
+        <div className="space-y-4">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight uppercase italic leading-[0.9]">
+            STOP <span className="text-[var(--nothing-text-dim)]">ESTIMATING.</span> <br />
+            START <span className="text-[var(--nothing-green)]">BUILDING.</span>
+          </h2>
+          <p className="text-[var(--nothing-text-dim)] text-sm uppercase tracking-[0.2em] font-mono max-w-sm mx-auto">
+            // JOIN THE CARBON-INTELLIGENT REVOLUTION
+          </p>
+        </div>
+        <button 
           onClick={() => nav('/projects')}
-          className="px-8 py-3 text-sm font-bold text-white rounded-xl gradient-primary hover:opacity-90 transition-all inline-flex items-center gap-2"
+          className="btn-nothing !px-16 !py-6 !text-sm"
         >
-          Create Your First Project <ArrowRight className="w-4 h-4" />
+          Initialize_System
         </button>
       </section>
     </div>
   )
 }
+

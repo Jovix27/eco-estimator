@@ -1,4 +1,4 @@
-import { DollarSign, Leaf, Zap, CheckCircle } from 'lucide-react'
+import { DollarSign, Leaf, Zap, CheckCircle, Activity } from 'lucide-react'
 
 interface SummaryCardsProps {
   totalCost: number
@@ -12,56 +12,52 @@ interface SummaryCardsProps {
 export default function SummaryCards({ totalCost, totalCarbon, ecoGrade, sustainablePct, costPerSqft, carbonPerSqft }: SummaryCardsProps) {
   const cards = [
     {
-      icon: <DollarSign className="text-blue-500" />,
-      iconBg: 'bg-blue-500/20',
-      borderHover: 'hover:border-blue-500/50',
-      label: 'TOTAL COST',
+      icon: <DollarSign size={16} />,
+      label: 'TOTAL_VALUATION',
       value: `₹${totalCost.toLocaleString('en-IN')}`,
-      sub: `₹${costPerSqft.toLocaleString('en-IN')}/sqft`,
+      sub: `₹${costPerSqft.toLocaleString('en-IN')}/SQFT_YIELD`,
+      color: 'text-[var(--nothing-text)]',
     },
     {
-      icon: <Leaf className="text-green-500" />,
-      iconBg: 'bg-green-500/20',
-      borderHover: 'hover:border-green-500/50',
-      label: 'CARBON FOOTPRINT',
+      icon: <Leaf size={16} />,
+      label: 'CARBON_FOOTPRINT_VECTOR',
       value: `${totalCarbon.toLocaleString('en-IN')}`,
-      valueSuffix: 'kgCO₂e',
-      sub: `${carbonPerSqft} kgCO₂e/sqft`,
+      valueSuffix: 'KG_CO2E',
+      sub: `${carbonPerSqft} KG_CO2E/SQFT_DENSITY`,
+      color: 'text-[var(--nothing-text)]',
     },
     {
-      icon: <Zap className="text-amber-500" />,
-      iconBg: 'bg-amber-500/20',
-      borderHover: 'hover:border-amber-500/50',
-      label: 'ECO GRADE',
+      icon: <Activity size={16} />,
+      label: 'ECO_GRADE_INDEX',
       value: ecoGrade?.grade || '—',
-      sub: ecoGrade ? `${ecoGrade.label} · ${ecoGrade.ratio} kgCO₂e/lakh` : 'N/A',
-      valueColor: ecoGrade?.color,
+      sub: ecoGrade ? `${ecoGrade.label} · ${ecoGrade.ratio} KG/LAKH` : 'N/A_NODE',
+      color: 'text-[var(--nothing-lime)]',
     },
     {
-      icon: <CheckCircle className="text-primary-500" />,
-      iconBg: 'bg-primary-500/20',
-      borderHover: 'hover:border-primary-500/50',
-      label: 'SUSTAINABLE %',
+      icon: <CheckCircle size={16} />,
+      label: 'SUSTAINABILITY_COEFFICIENT',
       value: `${sustainablePct}%`,
-      sub: sustainablePct >= 80 ? 'Eco-Optimized' : 'Conventional Mix',
+      sub: sustainablePct >= 80 ? 'OPTIMIZED_SYSTEM' : 'CONVENTIONAL_MIX',
+      color: 'text-[var(--nothing-lime)]',
     },
   ]
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
       {cards.map((c, i) => (
-        <div key={i} className={`glass p-5 rounded-2xl border border-white/10 shadow-xl transition-all ${c.borderHover}`}>
-          <div className="flex items-center gap-3 mb-2">
-            <div className={`w-9 h-9 rounded-lg ${c.iconBg} flex items-center justify-center`}>
-              {c.icon}
-            </div>
-            <span className="text-[10px] text-gray-500 font-black uppercase tracking-widest">{c.label}</span>
+        <div key={i} className="industrial-card p-6 border-[var(--nothing-border)] hover:bg-[var(--nothing-surface)] transition-all group">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-1.5 h-1.5 bg-[var(--nothing-lime)]"></div>
+            <span className="text-[8px] text-[var(--nothing-text-dim)] font-black uppercase tracking-[0.3em] italic">{c.label}</span>
           </div>
-          <div className="text-2xl font-black" style={c.valueColor ? { color: c.valueColor } : undefined}>
+          <div className={`text-2xl font-black italic tracking-tighter mb-2 ${c.color}`}>
             {c.value}
-            {c.valueSuffix && <span className="text-xs font-normal text-gray-400 ml-1">{c.valueSuffix}</span>}
+            {c.valueSuffix && <span className="text-[10px] not-italic font-black text-[var(--nothing-text-dim)] opacity-30 ml-2 tracking-widest">{c.valueSuffix}</span>}
           </div>
-          <p className="text-[10px] text-gray-500 mt-1 font-medium">{c.sub}</p>
+          <div className="flex items-center gap-2">
+            <div className="text-[var(--nothing-text-dim)] opacity-20 group-hover:text-[var(--nothing-lime)] transition-colors">{c.icon}</div>
+            <p className="text-[8px] text-[var(--nothing-text-dim)] opacity-40 font-black uppercase tracking-widest italic group-hover:text-[var(--nothing-text-dim)] transition-colors">// {c.sub}</p>
+          </div>
         </div>
       ))}
     </div>
