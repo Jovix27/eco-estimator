@@ -244,7 +244,10 @@ export default function ProjectsPage() {
             <div className="w-1.5 h-1.5 rounded-full bg-[var(--nothing-green)]"></div>
             <span className="text-[9px] font-mono text-[var(--nothing-green)] uppercase tracking-[0.2em]">Repository_Access</span>
           </div>
-          <h1 className="text-6xl md:text-8xl font-bold tracking-tight uppercase italic leading-[0.9]">Projects</h1>
+          <h1 className="text-6xl md:text-8xl font-bold tracking-tight leading-[0.9]">
+            <span className="text-[var(--nothing-text-dim)]">ALL</span> <br />
+            <span className="italic text-[var(--nothing-lime)]">PROJECTS</span>
+          </h1>
           <p className="text-sm text-[var(--nothing-text-dim)] max-w-md">
             Showing <span className="text-[var(--nothing-text)] font-bold">{projects.length} project vectors</span> currently active in the core estimation pipeline.
           </p>

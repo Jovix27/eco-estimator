@@ -102,27 +102,34 @@ export default function QuickEstimatePage() {
   const qualityLevels = ['Standard', 'Premium', 'Luxury'];
 
   return (
-    <div className="min-h-screen bg-[var(--nothing-bg)] text-[var(--nothing-text)] font-mono selection:bg-[var(--nothing-lime)] selection:text-black relative overflow-hidden transition-colors duration-300">
-      {/* Background Dot Matrix */}
-      <div className="absolute inset-0 dot-matrix opacity-[0.05] pointer-events-none"></div>
+     <div className="min-h-screen bg-gradient-to-br from-[var(--nothing-bg)] via-[var(--nothing-bg)] to-[var(--nothing-lime)]/5 text-[var(--nothing-text)] font-mono selection:bg-[var(--nothing-lime)] selection:text-black relative overflow-hidden transition-colors duration-300">
+       {/* Background Dot Matrix */}
+       <div className="absolute inset-0 dot-matrix opacity-[0.08] pointer-events-none"></div>
+       <div className="absolute inset-0 bg-gradient-to-r from-[var(--nothing-lime)]/5 via-transparent to-[var(--nothing-lime)]/5 pointer-events-none"></div>
       
-      <div className="relative max-w-6xl mx-auto px-6 py-12">
+       <div className="relative max-w-7xl mx-auto px-6 py-12 pb-24">
         {/* Header */}
-        <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+         <header className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 px-2 py-1 bg-[var(--nothing-lime)] text-black text-[9px] font-black uppercase tracking-[0.2em]">
-              Rapid Estimator v2.1
-            </div>
-            <h1 className="text-7xl md:text-8xl font-black tracking-tighter uppercase italic leading-[0.75] mb-4">
-              Quick <span className="text-transparent outline-text">Estimate</span>
-            </h1>
+               <div className="inline-flex items-center gap-2 px-3 py-1 bg-[var(--nothing-lime)] text-black text-[9px] font-black uppercase tracking-[0.2em] shadow-[0_0_20px_var(--nothing-lime)]/50">
+               <span className="w-1.5 h-1.5 bg-black rounded-none animate-pulse"></span>
+               Rapid Estimator v2.1
+             </div>
+             <h1 className="text-6xl md:text-8xl font-bold tracking-tight leading-[0.9] mb-4">
+               <span className="text-[var(--nothing-text-dim)]">QUICK</span> <br />
+               <span className="italic text-[var(--nothing-lime)]">ESTIMATE</span>
+             </h1>
             <p className="text-[var(--nothing-text-dim)] text-[11px] font-black max-w-md tracking-[0.2em] leading-relaxed uppercase border-l-2 border-[var(--nothing-lime)]/20 pl-4">
               // Location-aware construction cost projection<br/>
               // Real-time material price indexing enabled.
             </p>
           </div>
 
-          <div className="flex items-center gap-8 border-l border-[var(--nothing-border)] pl-8 h-fit">
+               <div className="flex items-center gap-8 border-l border-[var(--nothing-border)] pl-8 h-fit">
+                 <div className="text-right space-y-1">
+                   <div className="text-[9px] font-black text-[var(--nothing-text-dim)] uppercase tracking-[0.2em]">Active Node</div>
+                   <div className="text-[11px] font-black text-[var(--nothing-text)]">{location.city?.toUpperCase() || 'MUMBAI'}</div>
+                 </div>
             <div className="text-right">
               <div className="text-[9px] font-black text-[var(--nothing-text-dim)] uppercase tracking-[0.2em] mb-1">Engine Status</div>
               <div className="text-[11px] font-black text-[var(--nothing-lime)] flex items-center gap-2 justify-end">
@@ -133,14 +140,14 @@ export default function QuickEstimatePage() {
           </div>
         </header>
 
-        <div className="grid lg:grid-cols-[380px_1fr] gap-10 items-start">
+         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-10 items-start">
           {/* Input Section */}
           <motion.aside 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="space-y-6 sticky top-24"
           >
-            <div className="industrial-card p-8 border border-[var(--nothing-border)] space-y-8 bg-[var(--nothing-dark)]">
+                <div className="industrial-card p-6 border border-[var(--nothing-lime)]/20 space-y-6 bg-[var(--nothing-dark)] shadow-[inset_0_0_30px_var(--nothing-lime)]/5">
               <div className="flex items-center justify-between border-b border-[var(--nothing-border)] pb-4">
                 <div className="flex items-center gap-2">
                   <Layers className="w-3.5 h-3.5 text-[var(--nothing-lime)]" />
@@ -166,7 +173,7 @@ export default function QuickEstimatePage() {
                     type="number"
                     value={area}
                     onChange={(e) => setArea(Number(e.target.value))}
-                    className="w-full bg-[var(--nothing-bg)] border border-[var(--nothing-border)] px-5 py-5 text-3xl font-black focus:outline-none focus:border-[var(--nothing-lime)]/40 transition-all text-[var(--nothing-text)]"
+                     className="w-full bg-[var(--nothing-bg)] border border-[var(--nothing-border)] px-5 py-5 text-3xl font-black focus:outline-none focus:border-[var(--nothing-lime)] focus:shadow-[0_0_15px_var(--nothing-lime)]/20 transition-all text-[var(--nothing-text)]"
                   />
                   <div className="absolute right-5 top-1/2 -translate-y-1/2 text-[10px] font-black text-[var(--nothing-text-dim)] opacity-20 uppercase tracking-widest pointer-events-none">
                     SQFT_UNITS
@@ -181,9 +188,9 @@ export default function QuickEstimatePage() {
                   <select 
                     value={buildingType}
                     onChange={(e) => setBuildingType(e.target.value)}
-                    className="w-full bg-[var(--nothing-bg)] border border-[var(--nothing-border)] px-4 py-4 text-[11px] font-black uppercase appearance-none focus:outline-none focus:border-[var(--nothing-lime)]/40 transition-colors text-[var(--nothing-text)]"
-                  >
-                    {buildingTypes.map(t => <option key={t} value={t} className="bg-[var(--nothing-surface)] text-[var(--nothing-text)]">{t}</option>)}
+                     className="w-full bg-[var(--nothing-bg)] border border-[var(--nothing-border)] px-4 py-4 text-[11px] font-black uppercase appearance-none focus:outline-none focus:border-[var(--nothing-lime)] focus:shadow-[0_0_10px_var(--nothing-lime)]/20 transition-all text-[var(--nothing-text)]"
+                   >
+                     {buildingTypes.map(t => <option key={t} value={t} className="bg-[var(--nothing-bg)] text-[var(--nothing-text)]">{t}</option>)}
                   </select>
                 </div>
                 <div className="space-y-3">
@@ -191,19 +198,19 @@ export default function QuickEstimatePage() {
                   <select 
                     value={quality}
                     onChange={(e) => setQuality(e.target.value)}
-                    className="w-full bg-[var(--nothing-bg)] border border-[var(--nothing-border)] px-4 py-4 text-[11px] font-black uppercase appearance-none focus:outline-none focus:border-[var(--nothing-lime)]/40 transition-colors text-[var(--nothing-text)]"
-                  >
-                    {qualityLevels.map(q => <option key={q} value={q} className="bg-[var(--nothing-surface)] text-[var(--nothing-text)]">{q}</option>)}
+                     className="w-full bg-[var(--nothing-bg)] border border-[var(--nothing-border)] px-4 py-4 text-[11px] font-black uppercase appearance-none focus:outline-none focus:border-[var(--nothing-lime)] focus:shadow-[0_0_10px_var(--nothing-lime)]/20 transition-all text-[var(--nothing-text)]"
+                   >
+                     {qualityLevels.map(q => <option key={q} value={q} className="bg-[var(--nothing-bg)] text-[var(--nothing-text)]">{q}</option>)}
                   </select>
                 </div>
               </div>
 
               {/* Calculate Button */}
-              <button 
-                onClick={handleCalculate}
-                disabled={loading}
-                className="w-full py-6 bg-[var(--nothing-lime)] text-black font-black uppercase tracking-[0.3em] text-[11px] hover:bg-[var(--nothing-white)] hover:text-[var(--nothing-bg)] transition-all active:scale-[0.98] disabled:opacity-50 disabled:grayscale flex items-center justify-center gap-4 group relative overflow-hidden"
-              >
+               <button 
+                 onClick={handleCalculate}
+                 disabled={loading}
+                 className="w-full py-5 bg-[var(--nothing-lime)] text-black font-black uppercase tracking-[0.3em] text-[11px] hover:bg-[var(--nothing-lime)]/90 hover:shadow-[0_0_30px_var(--nothing-lime)]/50 transition-all active:scale-[0.98] disabled:opacity-50 disabled:grayscale flex items-center justify-center gap-4 group relative overflow-hidden border border-[var(--nothing-lime)]/50"
+               >
                 {loading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
                 ) : (
@@ -255,54 +262,63 @@ export default function QuickEstimatePage() {
                   animate={{ opacity: 1, y: 0 }}
                   className="space-y-10"
                 >
-                  {/* Hero Result Stats */}
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="industrial-card p-10 relative overflow-hidden group border-[var(--nothing-border-strong)]">
-                      <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-[0.07] transition-all text-[var(--nothing-text)]">
-                        <TrendingUp className="w-40 h-40" />
-                      </div>
-                      <div className="relative z-10">
-                        <div className="text-[9px] font-black text-[var(--nothing-text-dim)] uppercase tracking-[0.5em] mb-4">Total Projected Cost</div>
-                        <div className="text-7xl font-black tracking-tighter leading-none mb-6">
-                          <span className="text-[var(--nothing-text-dim)] opacity-30 text-4xl mr-2">₹</span>
-                          {(result.total_cost / 100000).toFixed(2)}
-                          <span className="text-3xl text-[var(--nothing-lime)] ml-2 italic">L</span>
+                   {/* Hero Result Stats */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                     <div className="industrial-card p-10 relative overflow-hidden group border-[var(--nothing-lime)]/30 bg-gradient-to-br from-[var(--nothing-lime)]/5 to-transparent">
+                        <div className="absolute top-0 right-0 p-6 opacity-[0.05] group-hover:opacity-[0.1] transition-all text-[var(--nothing-lime)]">
+                          <TrendingUp className="w-40 h-40" />
                         </div>
-                        <div className="flex items-center gap-4">
-                          <div className="px-3 py-1 bg-[var(--nothing-lime)] text-black text-[9px] font-black uppercase tracking-widest">PROVISIONAL_BOQ</div>
-                          <div className="text-[10px] font-bold text-[var(--nothing-text-dim)] opacity-40 uppercase tracking-widest italic">± 5% Margin Error</div>
+                        <div className="relative z-10">
+                          <div className="text-[10px] font-black text-[var(--nothing-lime)] uppercase tracking-[0.3em] mb-6 flex items-center gap-2">
+                            <div className="w-3 h-[1px] bg-[var(--nothing-lime)]/60"></div>
+                            Total Projected Cost
+                          </div>
+                          <div className="text-7xl font-black tracking-tighter leading-none mb-6">
+                            <span className="text-[var(--nothing-lime)] opacity-50 text-4xl mr-2">₹</span>
+                            {(result.total_cost / 100000).toFixed(2)}
+                            <span className="text-3xl text-[var(--nothing-lime)] ml-2 italic">L</span>
+                          </div>
+                          <div className="flex items-center gap-4">
+                            <div className="px-3 py-1 bg-[var(--nothing-lime)] text-black text-[9px] font-black uppercase tracking-widest shadow-[0_0_15px_var(--nothing-lime)]/50">PROVISIONAL_BOQ</div>
+                            <div className="text-[10px] font-bold text-[var(--nothing-lime)] opacity-60 uppercase tracking-widest italic">± 5% Margin Error</div>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="industrial-card p-10 border-[var(--nothing-border-strong)] bg-gradient-to-br from-[var(--nothing-surface)] to-transparent">
-                      <div className="text-[9px] font-black text-[var(--nothing-text-dim)] uppercase tracking-[0.5em] mb-4">Efficiency Metric</div>
-                      <div className="text-7xl font-black tracking-tighter leading-none mb-6">
-                        <span className="text-[var(--nothing-text-dim)] opacity-30 text-4xl mr-2">₹</span>
-                        {Math.round(result.rate_per_sqft)}
-                        <span className="text-2xl text-[var(--nothing-text-dim)] opacity-30 ml-2 uppercase font-medium tracking-widest">/sqft</span>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-[9px] font-black text-[var(--nothing-text-dim)] opacity-40 uppercase tracking-widest">
-                          <span>Market Average</span>
-                          <span>Regional Target</span>
-                        </div>
-                        <div className="h-1 w-full bg-[var(--nothing-border)] overflow-hidden flex">
-                          <div className="h-full bg-[var(--nothing-text)] opacity-10 w-[40%]"></div>
-                          <div className="h-full bg-[var(--nothing-lime)] w-[35%] shadow-[0_0_10px_var(--nothing-lime)]"></div>
-                        </div>
-                      </div>
-                    </div>
+                     <div className="industrial-card p-10 border-[var(--nothing-lime)]/30 bg-gradient-to-br from-[var(--nothing-lime)]/5 to-transparent">
+                       <div className="text-[10px] font-black text-[var(--nothing-lime)] uppercase tracking-[0.3em] mb-6 flex items-center gap-2">
+                         <div className="w-3 h-[1px] bg-[var(--nothing-lime)]/60"></div>
+                         Efficiency Metric
+                       </div>
+                       <div className="text-7xl font-black tracking-tighter leading-none mb-6">
+                         <span className="text-[var(--nothing-lime)] opacity-50 text-4xl mr-2">₹</span>
+                         {Math.round(result.rate_per_sqft)}
+                         <span className="text-2xl text-[var(--nothing-lime)] opacity-60 ml-2 uppercase font-medium tracking-widest">/sqft</span>
+                       </div>
+                       <div className="space-y-2">
+                         <div className="flex justify-between text-[9px] font-black text-[var(--nothing-lime)] opacity-60 uppercase tracking-widest">
+                           <span>Market Average</span>
+                           <span>Regional Target</span>
+                         </div>
+                         <div className="h-1 w-full bg-[var(--nothing-lime)]/20 overflow-hidden flex">
+                           <div className="h-full bg-[var(--nothing-lime)] opacity-30 w-[40%]"></div>
+                           <div className="h-full bg-[var(--nothing-lime)] w-[35%] shadow-[0_0_15px_var(--nothing-lime)]"></div>
+                         </div>
+                       </div>
+                     </div>
                   </div>
 
-                  {/* Detailed Breakdown & Price Matrix */}
-                  <div className="grid md:grid-cols-[1fr_300px] gap-8">
-                    <div className="industrial-card border-[var(--nothing-border)] bg-[var(--nothing-dark)]">
-                      <div className="px-8 py-6 border-b border-[var(--nothing-border)] flex items-center justify-between bg-white/[0.01]">
-                        <div className="flex items-center gap-3">
-                          <BarChart className="w-4 h-4 text-[var(--nothing-lime)]" />
-                          <h3 className="text-[10px] font-black uppercase tracking-[0.3em]">Resource Allocation Matrix</h3>
-                        </div>
+                   {/* Detailed Breakdown & Price Matrix */}
+                   <div className="grid md:grid-cols-[1.2fr_1fr] gap-8">
+                     <div className="industrial-card border-[var(--nothing-lime)]/20 bg-[var(--nothing-dark)] shadow-[inset_0_0_30px_var(--nothing-lime)]/5">
+                       <div className="px-8 py-6 border-b border-[var(--nothing-lime)]/20 flex items-center justify-between bg-[var(--nothing-lime)]/[0.02]">
+                         <div className="flex items-center gap-3">
+                           <BarChart className="w-4 h-4 text-[var(--nothing-lime)]" />
+                           <h3 className="text-[11px] font-black uppercase tracking-[0.25em] text-[var(--nothing-lime)] flex items-center gap-2">
+                             <div className="w-4 h-[1px] bg-[var(--nothing-lime)]/60"></div>
+                             Resource Allocation Matrix
+                           </h3>
+                         </div>
                         <div className="flex items-center gap-2">
                           <button className="p-2.5 hover:bg-[var(--nothing-surface)] border border-[var(--nothing-border)] transition-all">
                             <Download className="w-3.5 h-3.5 text-[var(--nothing-text-dim)]" />
@@ -313,7 +329,7 @@ export default function QuickEstimatePage() {
                         </div>
                       </div>
 
-                      <div className="p-10 space-y-10">
+                       <div className="p-8 space-y-8">
                         {result.breakdown?.map((item, idx) => (
                           <div key={idx} className="space-y-3 group">
                             <div className="flex justify-between items-end">
@@ -326,53 +342,53 @@ export default function QuickEstimatePage() {
                                 <div className="text-[10px] font-bold text-[var(--nothing-lime)] tracking-widest">{item.percentage}% SHARE</div>
                               </div>
                             </div>
-                            <div className="h-[2px] w-full bg-[var(--nothing-border)] overflow-hidden">
-                              <motion.div 
-                                initial={{ width: 0 }}
-                                animate={{ width: `${item.percentage}%` }}
-                                transition={{ duration: 1.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                                className="h-full bg-[var(--nothing-text)] group-hover:bg-[var(--nothing-lime)] transition-colors relative"
-                              >
-                                <div className="absolute inset-0 bg-[var(--nothing-lime)] blur-sm opacity-0 group-hover:opacity-40 transition-opacity"></div>
-                              </motion.div>
-                            </div>
+                             <div className="h-[2px] w-full bg-[var(--nothing-lime)]/20 overflow-hidden">
+                               <motion.div 
+                                 initial={{ width: 0 }}
+                                 animate={{ width: `${item.percentage}%` }}
+                                 transition={{ duration: 1.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                 className="h-full bg-[var(--nothing-lime)] shadow-[0_0_10px_var(--nothing-lime)] relative"
+                               >
+                                 <div className="absolute inset-0 bg-[var(--nothing-lime)] blur-sm opacity-40"></div>
+                               </motion.div>
+                             </div>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="space-y-8">
-                      {/* Price Stability Grid */}
-                      <div className="industrial-card p-6 border-[var(--nothing-border)] bg-[var(--nothing-dark)]">
-                        <PriceGrid data={result.material_prices} />
-                      </div>
+                     <div className="space-y-8">
+                       {/* Price Stability Grid */}
+                       <div className="industrial-card p-6 border-[var(--nothing-border)] bg-[var(--nothing-dark)]">
+                         <PriceGrid data={result.material_prices} />
+                       </div>
 
                       {/* Market Rates List */}
-                      <div className="space-y-3">
-                        <div className="text-[9px] font-black text-[var(--nothing-text-dim)] opacity-40 uppercase tracking-[0.3em] px-2 mb-4">Node Material Indices</div>
-                        {result.material_prices && Object.entries(result.material_prices).map(([name, data]: [string, any], i) => (
-                          <motion.div 
-                            key={i} 
-                            initial={{ opacity: 0, x: 10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.5 + (i * 0.05) }}
-                            className="flex items-center justify-between p-4 bg-[var(--nothing-surface)] border border-[var(--nothing-border)] hover:border-[var(--nothing-border-strong)] transition-all group cursor-default"
-                          >
+                       <div className="space-y-3">
+                         <div className="text-[9px] font-black text-[var(--nothing-lime)] opacity-60 uppercase tracking-[0.3em] px-2 mb-4">Node Material Indices</div>
+                         {result.material_prices && Object.entries(result.material_prices).map(([name, data]: [string, any], i) => (
+                           <motion.div 
+                             key={i} 
+                             initial={{ opacity: 0, x: 10 }}
+                             animate={{ opacity: 1, x: 0 }}
+                             transition={{ delay: 0.5 + (i * 0.05) }}
+                             className="flex items-center justify-between p-4 bg-[var(--nothing-bg)] border border-[var(--nothing-lime)]/20 hover:border-[var(--nothing-lime)]/40 hover:shadow-[0_0_15px_var(--nothing-lime)]/10 transition-all group cursor-default"
+                           >
                             <div className="flex items-center gap-4">
                               <div className="w-10 h-10 bg-[var(--nothing-bg)] flex items-center justify-center text-[11px] font-black text-[var(--nothing-lime)] border border-[var(--nothing-border)] group-hover:border-[var(--nothing-lime)]/40 transition-all">
                                 {name.substring(0, 2).toUpperCase()}
                               </div>
-                              <div>
-                                <div className="text-[10px] font-black uppercase tracking-tight text-[var(--nothing-text-dim)] group-hover:text-[var(--nothing-text)] transition-colors">{name}</div>
-                                <div className="text-[9px] text-[var(--nothing-text-dim)] opacity-30 font-bold uppercase tracking-widest">U_UNIT: {data.unit}</div>
-                              </div>
+                               <div>
+                                 <div className="text-[10px] font-black uppercase tracking-tight text-[var(--nothing-text-dim)] group-hover:text-[var(--nothing-lime)] transition-colors">{name}</div>
+                                 <div className="text-[9px] text-[var(--nothing-lime)] opacity-40 font-bold uppercase tracking-widest">U_UNIT: {data.unit}</div>
+                               </div>
                             </div>
-                            <div className="text-right">
-                              <div className="text-xs font-black tracking-tighter italic">₹{data.rate}</div>
-                              <div className={`text-[8px] font-black ${data.trend === 'up' ? 'text-red-500' : 'text-green-500'} flex items-center gap-1 justify-end uppercase tracking-widest mt-1`}>
-                                {data.trend === 'up' ? '▲ POS_SHIFT' : '▼ NEG_SHIFT'}
-                              </div>
-                            </div>
+                               <div className="text-right">
+                                 <div className="text-xs font-black tracking-tighter italic text-[var(--nothing-lime)]">₹{data.rate}</div>
+                                 <div className={`text-[8px] font-black ${data.trend === 'up' ? 'text-red-500' : 'text-[var(--nothing-lime)]'} flex items-center gap-1 justify-end uppercase tracking-widest mt-1`}>
+                                   {data.trend === 'up' ? '▲ POS_SHIFT' : '▼ NEG_SHIFT'}
+                                 </div>
+                               </div>
                           </motion.div>
                         ))}
                       </div>
@@ -395,29 +411,36 @@ export default function QuickEstimatePage() {
                   </div>
                 </motion.div>
               ) : (
-                <div className="h-full min-h-[600px] flex flex-col items-center justify-center text-center p-20 border border-[var(--nothing-border)] bg-[var(--nothing-dark)] relative overflow-hidden">
-                  <div className="absolute inset-0 dot-matrix opacity-10"></div>
-                  <div className="relative z-10 space-y-8">
-                    <div className="w-24 h-24 bg-[var(--nothing-surface)] flex items-center justify-center mx-auto border border-[var(--nothing-border)]">
-                      <Calculator className="w-10 h-10 text-[var(--nothing-text-dim)] opacity-20" />
-                    </div>
-                    <div className="space-y-4">
-                      <h3 className="text-3xl font-black uppercase tracking-tighter italic">Engine_Idling</h3>
-                      <p className="text-xs text-[var(--nothing-text-dim)] opacity-40 max-w-sm mx-auto leading-relaxed uppercase tracking-widest font-bold">
-                        Waiting for project vector inputs. <br />
-                        Define typology and built-up area to generate 
-                        industrial baseline estimate.
-                      </p>
-                    </div>
-                    
-                    {/* Visual Decoration */}
-                    <div className="grid grid-cols-8 gap-1.5 opacity-20 max-w-[200px] mx-auto">
-                      {[...Array(24)].map((_, i) => (
-                        <div key={i} className={`w-2 h-2 ${i < 8 ? 'bg-[var(--nothing-lime)]' : 'bg-[var(--nothing-border-strong)]'}`}></div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                 <div className="h-full min-h-[600px] flex flex-col items-center justify-center text-center p-20 border border-[var(--nothing-lime)]/20 bg-gradient-to-br from-[var(--nothing-lime)]/5 to-transparent relative overflow-hidden">
+                   <div className="absolute inset-0 dot-matrix opacity-[0.08]"></div>
+                   <div className="absolute inset-0 bg-gradient-to-r from-[var(--nothing-lime)]/5 via-transparent to-[var(--nothing-lime)]/5"></div>
+                   <div className="relative z-10 space-y-8">
+                     <div className="w-24 h-24 bg-[var(--nothing-bg)] flex items-center justify-center mx-auto border border-[var(--nothing-lime)]/30 shadow-[0_0_30px_var(--nothing-lime)]/20">
+                       <Calculator className="w-10 h-10 text-[var(--nothing-lime)] opacity-40" />
+                     </div>
+                     <div className="space-y-4">
+                       <h3 className="text-3xl font-black uppercase tracking-tighter italic text-[var(--nothing-lime)]">Engine_Idling</h3>
+                       <p className="text-xs text-[var(--nothing-text-dim)] opacity-60 max-w-sm mx-auto leading-relaxed uppercase tracking-widest font-bold">
+                         Waiting for project vector inputs. <br />
+                         Define typology and built-up area to generate 
+                         industrial baseline estimate.
+                       </p>
+                     </div>
+                     
+                     {/* Visual Decoration */}
+                     <div className="grid grid-cols-8 gap-1.5 opacity-40 max-w-[200px] mx-auto">
+                       {[...Array(24)].map((_, i) => (
+                         <motion.div 
+                           key={i} 
+                           initial={{ opacity: 0 }}
+                           animate={{ opacity: 1 }}
+                           transition={{ delay: i * 0.05 }}
+                           className={`w-2 h-2 ${i < 8 ? 'bg-[var(--nothing-lime)] shadow-[0_0_5px_var(--nothing-lime)]' : 'bg-[var(--nothing-lime)]/20'}`}
+                         ></motion.div>
+                       ))}
+                     </div>
+                   </div>
+                 </div>
               )}
             </AnimatePresence>
           </main>

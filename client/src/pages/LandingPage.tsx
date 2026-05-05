@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { 
-  ArrowRight, FileSpreadsheet, Zap, BarChart3, 
+import {
+  ArrowRight, FileSpreadsheet, Zap, BarChart3,
   Shield, Globe, Database, Layers, Cpu
 } from 'lucide-react'
 
@@ -22,11 +22,11 @@ export default function LandingPage() {
       {/* Background Decor */}
       <div className="fixed inset-0 dot-matrix opacity-[0.03] pointer-events-none"></div>
       <div className="fixed inset-0 grid-line opacity-[0.02] pointer-events-none"></div>
-      
+
       {/* Hero Section */}
       <section className="relative pt-20 pb-32 px-6">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div 
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_1.3fr] gap-16 items-center">
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -48,14 +48,14 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <button 
+              <button
                 onClick={() => nav('/projects')}
                 className="btn-nothing group flex items-center gap-3"
               >
                 Launch_Project
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button 
+              <button
                 onClick={() => nav('/quick')}
                 className="btn-nothing-outline"
               >
@@ -72,9 +72,9 @@ export default function LandingPage() {
           >
             <div className="absolute inset-0 bg-[var(--nothing-lime)] opacity-10 blur-[120px] rounded-full"></div>
             <div className="relative glass border-[var(--nothing-border-strong)] p-2 rounded-2xl overflow-hidden shadow-2xl">
-              <img 
-                src="/eco_estimator_hero_viz_1777961540145.png" 
-                alt="System Visualization" 
+              <img
+                src="/eco_estimator_hero_viz_1777961540145.png"
+                alt="System Visualization"
                 className="w-full aspect-[4/3] object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-1000"
               />
               <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
@@ -141,7 +141,7 @@ export default function LandingPage() {
             // JOIN THE CARBON-INTELLIGENT REVOLUTION
           </p>
         </div>
-        <button 
+        <button
           onClick={() => nav('/projects')}
           className="btn-nothing !px-16 !py-6 !text-sm"
         >
